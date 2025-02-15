@@ -1,6 +1,6 @@
 #include "minitalk.h"
 
-void    send_message(char a, int server_PID)
+void    send_message(char a, int server_pid)
 {
     int i;
 
@@ -8,9 +8,10 @@ void    send_message(char a, int server_PID)
     while(i < 8)
     {
         if((a << i) & 128)
-            kill(server_PID, SIGUSR1);
+            kill(server_pid, SIGUSR1);
         else
-            kill(server_PID, SIGUSR2);
+            kill(server_pid, SIGUSR2);
+    
         i++;
         usleep(100);
     }
@@ -18,17 +19,27 @@ void    send_message(char a, int server_PID)
 
 int main(int argc, char *argv[])
 {
-    int server_PID;
+    int server_pid;
     int i;
 
     i = 0;
     if(argc == 3)
     {
-        server_PID = ft_atoi(argv[1]);
+        server_pid = ft_atoi(argv[1]);
+        if (server_pid != true_pid())
+        {
+            ft_printf("Hata: Geçersiz PID!\n");
+            return (1);
+        }
         while(argv[2][i])
         {
-            send_message(argv[2][i], server_PID);
+            send_message(argv[2][i], server_pid);
             i++;
         }
+    }
+    else
+    {
+        ft_printf("Error: %s <Server_PID> <Message>\n", argv[0]);
+        exit (0);
     }
 }
