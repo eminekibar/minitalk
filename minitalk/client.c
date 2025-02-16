@@ -14,30 +14,30 @@
 
 void    send_message(char a, int server_pid)
 {
-        int     i;
+    int     i;
 
-        i = 0;
-        while (i < 8)
+    i = 0;
+    while (i < 8)
+    {
+        if ((a << i) & 128)
         {
-                if ((a << i) & 128)
-                {
-                        if (kill(server_pid, SIGUSR1) == -1)
-                        {
-                                ft_printf("Error: enter correct pid\n");
-                                exit(1);
-                        }
-                }
-                else
-                {
-                        if (kill(server_pid, SIGUSR2) == -1)
-                        {
-                                ft_printf("Error: enter correct pid\n");
-                                exit(1);
-                        }
-                }
-                i++;
-                usleep(100);
+            if (kill(server_pid, SIGUSR1) == -1)
+            {
+                ft_printf("Error: enter correct pid\n");
+                exit(1);
+            }
         }
+        else
+        {
+            if (kill(server_pid, SIGUSR2) == -1)
+            {
+                ft_printf("Error: enter correct pid\n");
+                exit(1);
+            }
+        }
+        i++;
+        usleep(100);
+    }
 }
 
 int     main(int argc, char *argv[])
@@ -49,17 +49,17 @@ int     main(int argc, char *argv[])
     i = 0;
     if (argc == 3)
     {
-    server_pid = ft_atoi(argv[1]);
-    if (server_pid <= 0)
-    {
-        ft_printf("Error: Geçersiz PID\n");
-        return (1);
-    }
-    while (argv[2][i])
-    {
-        send_message(argv[2][i], server_pid);
-        i++;
-    }
+        server_pid = ft_atoi(argv[1]);
+        if (server_pid <= 0)
+        {
+            ft_printf("Error: Geçersiz PID\n");
+            return (1);
+        }
+        while (argv[2][i])
+        {
+            send_message(argv[2][i], server_pid);
+            i++;
+        }
     }
     else
         ft_printf("Error: %s <Server_Pid> <Message>\n", argv[0]);

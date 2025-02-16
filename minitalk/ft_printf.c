@@ -1,14 +1,14 @@
 #include "minitalk.h"
 
-int	ft_putchar(char c)
+int		ft_putchar(char c)
 {
 	return (write(1, &c, 1));
 }
 
-int	ft_putstr(const char *str)
+int		ft_putstr(const char *str)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 
 	i = -1;
 	len = 0;
@@ -22,11 +22,11 @@ int	ft_putstr(const char *str)
 	return (len);
 }
 
-int	ft_convertbase(unsigned long long nb, int base, char *str, int mod)
+int		ft_convertbase(unsigned long long nb, int base, char *str, int mod)
 {
-	int	len;
-	int	i;
-	int	tmp_lst[100];
+	int		len;
+	int		i;
+	int		tmp_lst[100];
 
 	len = 0;
 	i = 0;
@@ -49,9 +49,9 @@ int	ft_convertbase(unsigned long long nb, int base, char *str, int mod)
 	return (len);
 }
 
-int	ft_checkformat(va_list ap, char format)
+int		ft_checkformat(va_list ap, char format)
 {
-	int	len;
+	int		len;
 
 	len = 0;
 	if (format == 'c')
@@ -60,26 +60,26 @@ int	ft_checkformat(va_list ap, char format)
 		len += ft_putstr(va_arg(ap, char *));
 	else if (format == 'p')
 		len += ft_convertbase(va_arg(ap, unsigned long long), 16,
-				"0123456789abcdef", 2);
+							  "0123456789abcdef", 2);
 	else if (format == 'd' || format == 'i')
 		len += ft_convertbase(va_arg(ap, int), 10, "0123456789", 1);
 	else if (format == 'u')
 		len += ft_convertbase(va_arg(ap, unsigned int), 10, "0123456789", 1);
 	else if (format == 'x')
 		len += ft_convertbase(va_arg(ap, unsigned int), 16, "0123456789abcdef",
-				1);
+							  1);
 	else if (format == 'X')
 		len += ft_convertbase(va_arg(ap, unsigned int), 16, "0123456789ABCDEF",
-				1);
+							  1);
 	else if (format == '%')
 		len += ft_putchar('%');
 	return (len);
 }
 
-int	ft_printf(const char *str, ...)
+int		ft_printf(const char *str, ...)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 
 	va_list(ap);
 	i = -1;
