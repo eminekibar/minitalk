@@ -17,16 +17,16 @@ COMPILE = $(CC) $(FLAGS)
 all: $(NAME_C) $(NAME_S)
 
 $(NAME_C): $(SRC_C)
-        $(COMPILE) $(SRC_C) -o $(NAME_C)
+	$(COMPILE) $(SRC_C) -o $(NAME_C)
 
 $(NAME_S): $(SRC_S)
-        $(COMPILE) $(SRC_S) -o $(NAME_S)
+	$(COMPILE) $(SRC_S) -o $(NAME_S)
 
 clean:
-        $(RM) $(OBJ_C) $(OBJ_S)
+	$(RM) $(OBJ_C) $(OBJ_S)
 
 fclean: clean
-        $(RM) $(NAME_C) $(NAME_S)
+	$(RM) $(NAME_C) $(NAME_S)
 
 re: fclean all
 
